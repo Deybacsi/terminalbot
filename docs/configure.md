@@ -1,4 +1,0 @@
-﻿---
-layout: page
-title: Configure
----
