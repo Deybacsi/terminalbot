@@ -6,7 +6,7 @@ Currenty only Binance is supported, but you can play with the code freely and im
 
 Current state: **seems stable but barely tested**
 
-## Disclaimer
+## Disclaimer - please read
 
 This project is a **proof-of-concept** to test Binance API and its features.
 Just to see / try if it's possible to make some bucks for cofee (or beer ;).
