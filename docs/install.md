@@ -1,6 +1,6 @@
 ﻿# How to install
 
-Install instructions was made for Ubuntu linux 18.04, but you can adopt it to any other *nix system easily.
+Below instructions were made for Ubuntu linux 18.04, but you can adopt it to any other *nix system easily.
 
 Tested on:
 - Ubuntu 18.04 x64
@@ -33,4 +33,4 @@ git submodule init
 git submodule update
 ```
 
-After install, you should [configure](/terminalbot/configure) your bot, and compile.
+Now you should [configure](/terminalbot/configure) your bot, and compile.
