@@ -1,0 +1,19 @@
+﻿# How to configure your settings
+
+Currently configuration options are only available in the form of direct source code modification. This means, after configuring your bot, you'll need to recompile.
+
+Please see
+
+#### Build  bot:
+```
+cmake .
+make
+```
+
+Or you can run `./compile.sh` to get submodules, and build the source.
+
+### Run:
+
+`./terminalbot` :)
+
+## Configuration
