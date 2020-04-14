@@ -19,7 +19,7 @@ cmake .
 make
 ```
 
-Or you can run `./compile.sh`.
+Or you can run `./compile.sh`
 
 ## Run:
 
