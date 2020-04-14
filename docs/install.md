@@ -31,3 +31,5 @@ Check your version: `cmake  --version`
 git  submodule  init
 git  submodule  update
 ```
+
+After install, you should [configure](/terminalbot/configure) your bot, and compile.
