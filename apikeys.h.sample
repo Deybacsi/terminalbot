@@ -1,0 +1,4 @@
+﻿// put here your api key and api secret
+
+const string    binanceApiKey="",
+                binanceApiSecret="";

@@ -44,6 +44,31 @@ const int MAXPRICECHECKWINDOWSIZE=50;
 bool    previousPricesBelow[MAXPRICECHECKWINDOWSIZE],
         previousPricesAbove[MAXPRICECHECKWINDOWSIZE];
 
+struct s_trades {
+    int priceCheckWindow;
+    float minimumProfit;
+    float oneTradePrice;
+    string buyId;
+    string buyTimeStamp;
+    float buyQuantity;
+    float buyQuote;
+    bool buyFilled;
+    string sellId;
+    string sellTimeStamp;
+    float sellQuantity;
+    float sellQuote;
+    bool sellFilled;
+};
+
+struct s_orders {
+    string Id;
+    string timeStamp;
+    float quantity;
+    float quote;
+    bool filled;
+};
+
+
 double getMA(int avg, int current) {
     int i, sum=0;
     for (i=current-avg; i<current; i++) {

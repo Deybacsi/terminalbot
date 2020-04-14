@@ -1,11 +1,17 @@
 ﻿/*
-#include <iostream>
-
-#include "3rdparty/cpp-httplib/httplib.h"
-#include "3rdparty/json/single_include/nlohmann/json.hpp"
-
+ * Terminalbot v1.0
+ *
+ * Simple trading bot using the 7,25,99 moving average (MA) indicators
+ * to buy/sell cryptocurrency trading pairs
+ *
+ * Strategy:
+ *
+ * If the current price drops below all of the MA indicators               -> buy
+ * If the current price rises above them & it's greater than our buy price -> sell
+ *
+ * You can fine-tune some detailed settings in config.h
+ *
 */
-
 
 #include <iostream>
 #include <math.h>
@@ -28,10 +34,11 @@ using namespace std;
 #include "curl/curl.h"
 #include "3rdparty/jsoncpp/include/json/json.h"
 #include "3rdparty/jsoncpp/include/json/reader.h"
-#include "config.h"
 #include "3rdparty/plog/include/plog/Log.h"
-#include "inc/common.h"
 
+#include "inc/common.h"
+#include "apikeys.h"
+#include "config.h"
 #include "inc/digits.h"
 #include "inc/http.h"
 #include "inc/screen.h"
@@ -48,7 +55,6 @@ int nTimeElapsed =0;
 int main(void) {
     system("mkdir logs botdata");
     system("stty raw -echo");
-    //system("stty raw");
     int ch = 0;
 
     // initialize the screen
@@ -57,42 +63,34 @@ int main(void) {
     Ctui tui;
     Cexchange binance;
     Cflags flags;
-
     Ctimer mytimer;
-    //string json=simpleCurl("https://api.binance.com/api/v3/","ticker/price?symbol=BTCUSDT");
-    //Document d;
-    //d.Parse(json);
-
-    //jute::jValue jsonn;
-
     screen.init();
     binance.candleLimit=screen.getScreenWidth()+100;
     screen.clearAllLayer(CLEARCHAR);
-    cout << "ok" << endl;
-    //cout << time(0);
-    //cout << commandToString("ls -la");
-    cout << to_string(binance.getCurrentPrice(binanceSymbol));
-//exit(0);
+    cout << "Starting..." << endl;
+
     // main loop until 3 ESC / x / q pressed
     while(ch!=27 && ch!=113 && ch!=120) {
-        int nTimeStart = GetMilliCount();
+        int nTimeStart = GetMilliCount();        // for counting milliseconds, needed for screen refresh
         screen.clearAllLayer(CLEARCHAR);
-        //currentPrice=binance.getCurrentPrice(binanceSymbol);
-
+        // call our timer functions
         mytimer.getCurrentPrice(binance,binanceSymbol);
         mytimer.getCandles(binance,binanceSymbol);
-        tui.putStatusBar(screen, statusBarStr);
+
+        // draw things to screen buffer
         tui.putMenu(screen);
+        tui.putStatusBar(screen, statusBarStr);
         tui.drawChart(screen, binance.candleLimit );
         flags.checkFlags();
         tui.drawFlags(screen, flags);
+        tui.drawPrice(screen, screen.getScreenWidth()-doubleToString2(currentPrice).length()*DIGITWIDTH, screen.getScreenHeight()-1-DIGITHEIGHT, currentPrice);
+        // print out all buffers/layers
+        screen.mergeLayers();
+        screen.printScreen();
 
         if (keyPressed()) {
-
             ch=getchar();
             switch (ch) {
-
-            //if (ch==27) {
                 case 27:
                     getchar(); ch=getchar();
                     switch (ch) {
@@ -119,33 +117,13 @@ int main(void) {
                     tui.chartVisible=!tui.chartVisible; break;
             }
         }
-
-        //screen.charXy(4,10,5, { "▀" , 0,1, false, false, false } );
-        //screen.stringXy(3,10,7, { " " , 0,1, false, false, false },  commandToString("date +%s") );
-        //screen.stringXy(3,10,9, { " " , 0,1, false, false, false },  to_string(currentPrice) );
-        //tui.drawDigit(screen, 3, 15,15,2, { "a" , 2,0, false, false, false });
-        tui.drawPrice(screen, screen.getScreenWidth()-doubleToString2(currentPrice).length()*DIGITWIDTH, screen.getScreenHeight()-1-DIGITHEIGHT, currentPrice);
-        //screen.stringXy(3,10,9, { " " , 0,1, false, false, false }, " commandToString('date +%s')" );
-        //gotoXy(0,0);
-        //cout << "EZ";
-
-        screen.mergeLayers();
-        screen.printScreen();
-
-
-
-        //usleep(FPS2NANOSEC);
-        // get elapsed time in ms
+        // get elapsed time in ms since loop start
         int nTimeElapsed = GetMilliSpan( nTimeStart );
         // wait some ms to have the needed FPS
         std::this_thread::sleep_for(std::chrono::milliseconds(FPS2MILLISEC-nTimeElapsed));
-
-
-
     }
-
+    // restore terminal
     system("stty cooked echo");
-    cout << "end";
-
+    cout << "Thanks for using Terminalbot :)\n";
     return 0;
 }
