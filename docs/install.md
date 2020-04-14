@@ -1,6 +1,7 @@
 ﻿# How to install
 
 Install instructions was made for Ubuntu linux 18.04, but you can adopt it to any other *nix system easily.
+
 Tested on:
 - Ubuntu 18.04 x64
 
