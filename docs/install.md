@@ -12,7 +12,7 @@ Tested on:
 sudo  apt-get  install  libssl-dev  libcurl4-openssl-dev  libjsoncpp-dev
 ```
 
-### Install  newest  cmake
+### Install  newest  cmake:
 Currently it's 3.17
 ```
 sudo  apt-get purge cmake
