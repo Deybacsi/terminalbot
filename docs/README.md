@@ -10,10 +10,11 @@ Current state: **seems stable but barely tested**
 
 This project is a **proof-of-concept** to test Binance API and its features.
 Just to see / try if it's possible to make some bucks for cofee (or beer ;).
+
 This software is under development. Unpredictable and unhandled behaviors can happen.
 
 BTW it's one of my C++ learning projects, to get some experience with the language.
-Code is messy, and can have lots of non foreseen bugs.
+Code is messy, and can have lots of non foreseen bugs. Comments can be seen at some points :)
 
 **DO NOT USE** this for your daily trading! You can **lose your money** if something goes wrong!
 
