@@ -1,15 +1,15 @@
-﻿## How to install
+﻿# How to install
 
-Install instructions was made for Ubuntu 18.04, but you can adopt it to any other *nix system easily.
+Install instructions was made for Ubuntu linux 18.04, but you can adopt it to any other *nix system easily.
 Tested on:
-- Ubuntu 18.04
+- Ubuntu 18.04 x64
 
-### Prerequisites:
+## Prerequisites:
 
-#### Install  curl, jsoncpp, openssl:
+### Install  curl, jsoncpp, openssl:
 `sudo  apt-get  install  libssl-dev  libcurl4-openssl-dev  libjsoncpp-dev`
 
-#### Install  newest  cmake
+### Install  newest  cmake
 Currently it's 3.17
 ```
 sudo  apt-get purge cmake
@@ -24,7 +24,7 @@ sudo  make  install
 ```
 Check your version: `cmake  --version`
 
-#### Get needed submodules for project:
+### Get needed submodules for project:
 ```
 git  submodule  init
 git  submodule  update
