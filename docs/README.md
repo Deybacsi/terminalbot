@@ -2,7 +2,7 @@
 
 Simple C++ trading bot using the 7, 25, 99 moving average (MA) indicators to trade cryptocurrencies on exchanges.
 
-Currenty only Binance is supported, but you can play with the code. Please check `inc/binance.h`
+Currenty only Binance is supported, but you can play with the code freely and implement other exchanges. Please check `inc/binance.h`
 
 
 ## Disclaimer
