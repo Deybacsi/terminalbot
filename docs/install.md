@@ -7,7 +7,9 @@ Tested on:
 ## Prerequisites:
 
 ### Install  curl, jsoncpp, openssl:
-`sudo  apt-get  install  libssl-dev  libcurl4-openssl-dev  libjsoncpp-dev`
+```
+sudo  apt-get  install  libssl-dev  libcurl4-openssl-dev  libjsoncpp-dev
+```
 
 ### Install  newest  cmake
 Currently it's 3.17
