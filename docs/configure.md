@@ -19,7 +19,7 @@ cmake .
 make
 ```
 
-Or you can run `./compile.sh` to get submodules, and build the source.
+Or you can run `./compile.sh`.
 
 ## Run:
 
