@@ -19,13 +19,13 @@ sudo apt-get purge cmake
 mkdir ~/temp
 cd ~/temp
 wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz
-tar -xzvf  cmake-3.17.0.tar.gz
+tar -xzvf cmake-3.17.0.tar.gz
 cd cmake-3.17.0/
 ./bootstrap
 make
 sudo make install
 ```
-Check your version: `cmake  --version`
+Check your version: `cmake --version`
 
 ### Get needed submodules for project:
 ```
