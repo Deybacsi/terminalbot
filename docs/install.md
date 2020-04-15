@@ -7,9 +7,9 @@ Tested on:
 
 ## Prerequisites:
 
-### Install  curl, jsoncpp, openssl:
+### Install  curl, jsoncpp, openssl, git:
 ```
-sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev
+sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git
 ```
 
 ### Install  newest  cmake:
@@ -27,10 +27,14 @@ sudo make install
 ```
 Check your version: `cmake --version`
 
-### Get needed submodules for project:
+### Clone terminalbot to your computer
+
 ```
+git clone https://github.com/Deybacsi/terminalbot.git
+cd terminalbot
 git submodule init
 git submodule update
 ```
+
 
 Now you should [configure](/terminalbot/configure) your bot, and compile.
