@@ -35,3 +35,7 @@ $ curl https://api.binance.com
 
 <!DOCTYPE html><html><head><title>Test OK</title></head><body></body></html>
 ```
+
+### Bot seems 'stuck', no price and chart updates on screen
+
+Please check the log, and internet connection, as above.
