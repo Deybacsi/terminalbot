@@ -47,7 +47,12 @@ const int   MAXY = 1000;
 #define clearScreen() printf("\033[H\033[J")
 // move cursor
 #define gotoXy(x,y) printf("\033[%d;%dH", (x), (y))
-
+// hide cursor
+#define hideCursor() printf("\033[?25l");
+// show cursor
+#define showCursor() printf("\033[?25h");
+// reset text color to defaults
+#define textReset() printf("\033[0m");
 
 // the simple char type
 struct s_simplechar {

@@ -55,6 +55,7 @@ int nTimeElapsed =0;
 int main(void) {
     system("mkdir logs botdata");
     system("stty raw -echo");
+    hideCursor();
     int ch = 0;
 
     // initialize the screen
@@ -124,6 +125,8 @@ int main(void) {
     }
     // restore terminal
     system("stty cooked echo");
+    textReset();
+    showCursor();
     cout << "Thanks for using Terminalbot :)\n";
     return 0;
 }

@@ -68,7 +68,7 @@ const float     ONETRADEPRICE=10;
  *
  * another one could be setup to wait more and trade larger amounts
  * - PRICECHECKWINDOWSIZE=5, MINIMUMPROFIT=2, ONETRADEPRICE=100
- *   wait 5*15min, buy for 100 USDT with 2% profits
+ *   wait 5*15min, buy for 100 USDT and sell with 2% profits
  *
  * change only the first 3 values, the other ones are overwritten by bot later
  *
