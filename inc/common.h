@@ -15,8 +15,8 @@ const int KEY_RIGHT = 67;
 
 // to store the current candle datas -> display
 struct s_candles {
-    long int openTime;
-    long int closeTime;
+    long long int openTime;
+    long long int closeTime;
     double priceLow;
     double priceHigh;
     double priceOpen;

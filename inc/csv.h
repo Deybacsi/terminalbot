@@ -5,9 +5,9 @@
 
 struct s_order {
     string symbol;
-    long int orderId;
+    long long int orderId;
     string clientOrderId;
-    long int transactTime;
+    long long int transactTime;
     float price;
     float origQty;
     float executedQty;

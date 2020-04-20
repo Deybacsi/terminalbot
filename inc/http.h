@@ -29,21 +29,17 @@ Json::Value simpleCurl(string apiUrl, string queryStr) {
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     long httpCode(0);
-
     std::stringstream json;
-
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callback);
 
     // Hook up data container (will be passed as the last parameter to the
     // callback handling function).  Can be any pointer type, since it will
     // internally be passed as a void pointer.
     try {
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json);
-
-    curl_easy_perform(curl);
-    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
-
-    curl_easy_cleanup(curl);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &json);
+        curl_easy_perform(curl);
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
+        curl_easy_cleanup(curl);
     } catch (...) {
         PLOGE << "simpleCurl exception! httpCode:"+to_string(httpCode)+" - URL: " << url;
     }

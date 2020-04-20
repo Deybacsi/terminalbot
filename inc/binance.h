@@ -8,7 +8,7 @@
 
 class Cexchange {
     private:
-        string binanceApiUrl="https://api.binance.com/api/v3/";
+        string apiUrl="https://api.binance.com/api/v3/";
 
     public:
 
@@ -18,10 +18,10 @@ class Cexchange {
 
         double getCurrentPrice(string symbol) {
             try {
-                Json::Value resp=simpleCurl(binanceApiUrl,"ticker/price?symbol="+symbol);
-
+                Json::Value resp=simpleCurl(apiUrl,"ticker/price?symbol="+symbol);
                 return stod(resp["price"].asString());
-            } catch (...) { // shitty exception handling ;)
+            } catch (...) { // the worst exception handling :o
+                // TODO!
                 return 0;
             }
 
@@ -30,7 +30,7 @@ class Cexchange {
         void getCandles(string symbol) {
             unsigned int i;
 
-            Json::Value resp=simpleCurl(binanceApiUrl,"klines?symbol="+symbol+"&interval="+candleInterval+"&limit="+to_string(candleLimit));
+            Json::Value resp=simpleCurl(apiUrl,"klines?symbol="+symbol+"&interval="+candleInterval+"&limit="+to_string(candleLimit));
 
             for (i=0; i<resp.size(); i++) {
                 //store candle datas
@@ -40,6 +40,11 @@ class Cexchange {
                     stod(resp[i][7].asString()),stoi(resp[i][8].asString())
                 };
             }
+        }
+
+        s_orders getActiveOrders(string symbol) {
+
+            //Json::Value resp
         }
 };
 
@@ -78,7 +83,7 @@ class Cflags {
             for (i=0; i<priceCheckWindowSize; i++ ) {
                 priceConstantBelowCount+=previousPricesBelow[MAXPRICECHECKWINDOWSIZE-i-1] ? 1 : 0;
             }
-            priceConstantBelow= priceConstantBelowCount==PRICECHECKWINDOWSIZE;
+            priceConstantBelow= priceConstantBelowCount==priceCheckWindowSize;
             priceConstantAboveCount=0;
             for (i=0; i<priceCheckWindowSize; i++ ) {
                 priceConstantAboveCount+=previousPricesAbove[MAXPRICECHECKWINDOWSIZE-i-1] ? 1 : 0;

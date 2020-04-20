@@ -4,6 +4,7 @@ Below instructions were made for Ubuntu linux 18.04, but you can adopt it to any
 
 Tested on:
 - Ubuntu 18.04 x64
+- Raspberry Pi 3B+, Raspbian 32bit
 
 ## Prerequisites:
 
