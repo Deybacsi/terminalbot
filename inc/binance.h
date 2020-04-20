@@ -35,7 +35,7 @@ class Cexchange {
             for (i=0; i<resp.size(); i++) {
                 //store candle datas
                 candles[i]= {
-                    stol(resp[i][0].asString()),stol(resp[i][6].asString()),stod(resp[i][3].asString()),
+                    stoll(resp[i][0].asString()),stoll(resp[i][6].asString()),stod(resp[i][3].asString()),
                     stod(resp[i][2].asString()),stod(resp[i][1].asString()),stod(resp[i][4].asString()),
                     stod(resp[i][7].asString()),stoi(resp[i][8].asString())
                 };
@@ -60,6 +60,9 @@ class Cflags {
         int     priceConstantAboveCount,
                 priceConstantBelowCount;
 
+        // initial values
+        int     priceCheckWindowSize;
+        float   minimumProfit;
 
         void checkFlags() {
             int i;
@@ -72,12 +75,12 @@ class Cflags {
             priceBelowAll = currentPrice !=0 && currentPrice < MA7 && currentPrice < MA25 && currentPrice < MA99 ;
             priceAboveAll = currentPrice !=0 && currentPrice > MA7 && currentPrice > MA25 && currentPrice > MA99;
             priceConstantBelowCount=0;
-            for (i=0; i<PRICECHECKWINDOWSIZE; i++ ) {
+            for (i=0; i<priceCheckWindowSize; i++ ) {
                 priceConstantBelowCount+=previousPricesBelow[MAXPRICECHECKWINDOWSIZE-i-1] ? 1 : 0;
             }
             priceConstantBelow= priceConstantBelowCount==PRICECHECKWINDOWSIZE;
             priceConstantAboveCount=0;
-            for (i=0; i<PRICECHECKWINDOWSIZE; i++ ) {
+            for (i=0; i<priceCheckWindowSize; i++ ) {
                 priceConstantAboveCount+=previousPricesAbove[MAXPRICECHECKWINDOWSIZE-i-1] ? 1 : 0;
             }
             priceConstantAbove= priceConstantAboveCount==PRICECHECKWINDOWSIZE;

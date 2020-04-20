@@ -9,7 +9,9 @@
  * If the current price drops below all of the MA indicators               -> buy
  * If the current price rises above them & it's greater than our buy price -> sell
  *
- * You can fine-tune some detailed settings in config.h
+ *
+ * For details, please visit:
+ * https://deybacsi.github.io/terminalbot/
  *
 */
 
@@ -51,6 +53,7 @@ using namespace std;
 // elapsed time counter in msec
 int nTimeElapsed =0;
 
+Cflags flags[MAXACTIVETRADES];
 
 int main(void) {
     system("mkdir logs botdata");
@@ -58,12 +61,18 @@ int main(void) {
     hideCursor();
     int ch = 0;
 
-    // initialize the screen
+
+    // initialize things
     plog::init(plog::debug, "logs/log.txt", 1000000, 30);
     Cscreen screen;
     Ctui tui;
     Cexchange binance;
-    Cflags flags;
+
+    int i;
+    for (i=0; i<MAXACTIVETRADES; i++) {
+        flags[i].priceCheckWindowSize=trades[i].priceCheckWindow;
+    }
+    //Cflags flags;
     Ctimer mytimer;
     screen.init();
     binance.candleLimit=screen.getScreenWidth()+100;
@@ -82,9 +91,13 @@ int main(void) {
         tui.putMenu(screen);
         tui.putStatusBar(screen, statusBarStr);
         tui.drawChart(screen, binance.candleLimit );
-        flags.checkFlags();
+        for (i=0; i<MAXACTIVETRADES; i++) {
+            flags[i].checkFlags();
+            //tui.drawFlags(screen, flags[i]);
+        }
+        //flags.checkFlags();
         tui.drawFlags(screen, flags);
-        tui.drawPrice(screen, screen.getScreenWidth()-doubleToString2(currentPrice).length()*DIGITWIDTH, screen.getScreenHeight()-1-DIGITHEIGHT, currentPrice);
+        tui.drawPrice(screen, screen.getScreenWidth()-doubleToString2(currentPrice).length()*DIGITWIDTH, tui.chartBottom+3, currentPrice);
         // print out all buffers/layers
         screen.mergeLayers();
         screen.printScreen();

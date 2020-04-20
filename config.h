@@ -21,7 +21,7 @@ const string    binanceSymbol="BTCUSDT";
  *
  *
  */
-const int       MAXACTIVETRADES=1;
+const int       MAXACTIVETRADES=3;
 
 /* the last X candles to check to see if we are constantly below/above MAs
  *
@@ -29,7 +29,7 @@ const int       MAXACTIVETRADES=1;
  * higher value means *possible* bigger profits
  */
 
-const int       PRICECHECKWINDOWSIZE=5;
+const int       PRICECHECKWINDOWSIZE=3;
 
 /* minimum profit for selling - in percent -> 1 = 1%
  *
@@ -77,6 +77,20 @@ const float     ONETRADEPRICE=10;
 s_trades trades[MAXACTIVETRADES] = {
     {
         PRICECHECKWINDOWSIZE,
+        MINIMUMPROFIT,
+        ONETRADEPRICE,
+        "", "", 0, 0, false,
+        "", "", 0, 0, false
+    },
+    {
+        PRICECHECKWINDOWSIZE+2,
+        MINIMUMPROFIT,
+        ONETRADEPRICE,
+        "", "", 0, 0, false,
+        "", "", 0, 0, false
+    },
+    {
+        PRICECHECKWINDOWSIZE+4,
         MINIMUMPROFIT,
         ONETRADEPRICE,
         "", "", 0, 0, false,

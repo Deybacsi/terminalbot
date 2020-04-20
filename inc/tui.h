@@ -24,6 +24,7 @@ class Ctui {
                 ma25Visible=true,
                 ma99Visible=true,
                 chartVisible=true;
+        int     chartBottom;
 
         void putStatusBar(Cscreen &screen, string statusstr) {
             screen.lineXy(STATUSBAR_LAYER, 0, screen.getScreenHeight()-1, screen.getScreenWidth(), screen.getScreenHeight()-1, STATUSBAR);
@@ -68,7 +69,8 @@ class Ctui {
 
         // draw the chart and calculate important indicators
         void drawChart(Cscreen &screen, int candleLimit){
-            int chartTop=1, chartBottom = (int)((screen.getScreenHeight()-2)/3*2 + 0.5);
+            int chartTop=1;
+            chartBottom = (int)((screen.getScreenHeight()-2)/3*2 + 0.5);
 
             int     charRange=chartBottom-chartTop;         // how many chars we have vertically for chart
             int     i,j,currentX;
@@ -253,44 +255,60 @@ class Ctui {
             //statusBarStr=to_string(priceMin)+"-"+to_string(priceMax)+"-"+to_string(candles[100].priceLow)+" - "+to_string(priceMaxIndex);
         }
 
-        void drawFlags(Cscreen &screen, Cflags &flags) {
+        void drawFlags(Cscreen &screen, Cflags flags[]) {
             int chartBottom = (int)((screen.getScreenHeight()-2)/3*2 + 0.5);
-
+            int i;
             screen.stringXy(4,1,chartBottom+3,
                 { " " , C_WHITE,0, false, false, false }, "Current:" );
             screen.stringXy(4,1,chartBottom+4,
                 { " " , C_GRAY,0, false, false, false }, "Above:" );
             screen.stringXy(4,14,chartBottom+4,
-                { " " , MA7COLOR,0, false, false, false }, flags.priceAboveMa7 ? "MA7" : "   " );
+                { " " , MA7COLOR,0, false, false, false }, flags[0].priceAboveMa7 ? "MA7" : "   " );
             screen.stringXy(4,18,chartBottom+4,
-                { " " , MA25COLOR,0, false, false, false }, flags.priceAboveMa25 ? "MA25" : "    " );
+                { " " , MA25COLOR,0, false, false, false }, flags[0].priceAboveMa25 ? "MA25" : "    " );
             screen.stringXy(4,23,chartBottom+4,
-                { " " , MA99COLOR,0, false, false, false }, flags.priceAboveMa99 ? "MA99" : "    " );
+                { " " , MA99COLOR,0, false, false, false }, flags[0].priceAboveMa99 ? "MA99" : "    " );
             screen.charXy(4,28,chartBottom+4,
-                { flags.priceAboveAll ? "✔️" : "" , C_GREEN ,0, false, false, false });
+                { flags[0].priceAboveAll ? "✔️" : " " , C_GREEN ,0, false, false, false });
             screen.stringXy(4,1,chartBottom+5,
 
                 { " " , C_GRAY,0, false, false, false }, "Below:" );
             screen.stringXy(4,14,chartBottom+5,
-                { " " , MA7COLOR,0, false, false, false }, flags.priceBelowMa7 ? "MA7" : "   " );
+                { " " , MA7COLOR,0, false, false, false }, flags[0].priceBelowMa7 ? "MA7" : "   " );
             screen.stringXy(4,18,chartBottom+5,
-                { " " , MA25COLOR,0, false, false, false }, flags.priceBelowMa25 ? "MA25" : "    " );
+                { " " , MA25COLOR,0, false, false, false }, flags[0].priceBelowMa25 ? "MA25" : "    " );
             screen.stringXy(4,23,chartBottom+5,
-                { " " , MA99COLOR,0, false, false, false }, flags.priceBelowMa99 ? "MA99" : "    " );
+                { " " , MA99COLOR,0, false, false, false }, flags[0].priceBelowMa99 ? "MA99" : "    " );
 
             screen.charXy(4,28,chartBottom+5,
-                { flags.priceBelowAll ? "✔️" : "" , C_GREEN ,0, false, false, false });
+                { flags[0].priceBelowAll ? "✔️" : " " , C_GREEN ,0, false, false, false });
 
+            for (i=chartBottom+3; i<chartBottom+6;i++) {
+                screen.charXy(4,30,i,
+                    { "┊" , C_GRAY,0, false, false, false } );
+            }
             screen.stringXy(4,31,chartBottom+3,
-                { " " , C_WHITE,0, false, false, false }, "Last "+to_string(PRICECHECKWINDOWSIZE) );
-
+                { " " , C_WHITE,0, false, false, false }, "Last" );
+/*
             screen.stringXy(4,31,chartBottom+4,
-                { " ", (unsigned short int) (flags.priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
-                flags.priceConstantAbove ? "Constant" : " Wait: "+to_string(flags.priceConstantAboveCount)+" / "+to_string(PRICECHECKWINDOWSIZE) );
+                { " ", (unsigned short int) (flags[i].priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
+                flags[i].priceConstantAbove ? "Constant" : " Wait:" );
             screen.stringXy(4,31,chartBottom+5,
-                { " ", (unsigned short int) (flags.priceConstantBelow ? C_GREEN : C_GRAY) ,0, false, false, false },
-                flags.priceConstantBelow ? "Constant" : " Wait: "+to_string(flags.priceConstantBelowCount)+" / "+to_string(PRICECHECKWINDOWSIZE) );
+                { " ", (unsigned short int) (flags[i].priceConstantBelow ? C_GREEN : C_GRAY) ,0, false, false, false },
+                flags[i].priceConstantBelow ? "Constant" : " Wait:" );
+     */
+            for (i=0; i< MAXACTIVETRADES; i++) {
 
+                screen.stringXy(4,36+i*4,chartBottom+3,
+                    { " " , C_WHITE,0, false, false, false }, to_string(flags[i].priceCheckWindowSize) );
+
+                screen.stringXy(4,36+i*4,chartBottom+4,
+                    { " ", (unsigned short int) (flags[i].priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
+                    flags[i].priceConstantAbove ? to_string(flags[i].priceConstantAboveCount) : to_string(flags[i].priceConstantAboveCount) );
+                screen.stringXy(4,36+i*4,chartBottom+5,
+                    { " ", (unsigned short int) (flags[i].priceConstantBelow ? C_GREEN : C_GRAY) ,0, false, false, false },
+                    flags[i].priceConstantBelow ? to_string(flags[i].priceConstantBelowCount) : to_string(flags[i].priceConstantBelowCount) );
+            }
         }
 
 };
