@@ -16,17 +16,19 @@ class Cexchange {
         int     candleLimit     = 77;
 
 
+        // what should be this? :D
         double getCurrentPrice(string symbol) {
             try {
                 Json::Value resp=simpleCurl(apiUrl,"ticker/price?symbol="+symbol);
                 return stod(resp["price"].asString());
-            } catch (...) { // the worst exception handling :o
+            } catch (...) { // the worst exception handling ever ! :o
                 // TODO!
                 return 0;
             }
 
         }
 
+        // get previous price candle datas - set by candleInterval & candleLimit
         void getCandles(string symbol) {
             unsigned int i;
 
@@ -42,9 +44,19 @@ class Cexchange {
             }
         }
 
-        s_orders getActiveOrders(string symbol) {
+        // sign an API request query with the API secret
+        string signQuery(string query) {
+            string signature=commandToString("echo -n '"+query+"' | openssl dgst -sha256 -hmac '"+binanceApiSecret+"' | cut -f2 -d' '");
+            return signature;
+        }
 
-            //Json::Value resp
+        void getActiveOrders(string symbol) {
+            string query="symbol="+symbol+"&timestamp="+to_string(getTimeStamp());
+            string signedQuery=signQuery(query);
+
+            Json::Value resp=simpleCurl(apiUrl,"openOrders?"+query+"&signature="+signedQuery);
+            //cout << resp;
+
         }
 };
 
@@ -88,6 +100,6 @@ class Cflags {
             for (i=0; i<priceCheckWindowSize; i++ ) {
                 priceConstantAboveCount+=previousPricesAbove[MAXPRICECHECKWINDOWSIZE-i-1] ? 1 : 0;
             }
-            priceConstantAbove= priceConstantAboveCount==PRICECHECKWINDOWSIZE;
+            priceConstantAbove= priceConstantAboveCount==priceCheckWindowSize;
         }
 };

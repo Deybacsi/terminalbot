@@ -160,7 +160,7 @@ class Ctui {
                     MAstr="⋯";
                     prevMA7charY=MA7charY;
                     MA7charY=chartBottom-(int)((MA7-priceMin)/charHeightPrice+0.5);
-                    if (MA7charY<chartBottom) {
+                    if (MA7charY<chartBottom && MA7charY>1 ) {
                         if (prevMA7charY > MA7charY) { MAstr="⋰"; screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
                         if (prevMA7charY < MA7charY) { MAstr="⋱"; screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
 
@@ -171,7 +171,7 @@ class Ctui {
                     MAstr="⋯";
                     prevMA25charY=MA25charY;
                     MA25charY=chartBottom-(int)((MA25-priceMin)/charHeightPrice+0.5);
-                    if (MA25charY<chartBottom) {
+                    if (MA25charY<chartBottom && MA25charY>1) {
                         if (prevMA25charY > MA25charY) { MAstr="⋰"; screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
                         if (prevMA25charY < MA25charY) { MAstr="⋱"; screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
                         screen.charXy(2,currentX,MA25charY,{ MAstr, MA25COLOR,0, false, false, false } );
@@ -181,7 +181,7 @@ class Ctui {
                     MAstr="⋯";
                     prevMA99charY=MA99charY;
                     MA99charY=chartBottom-(int)((MA99-priceMin)/charHeightPrice+0.5);
-                    if (MA99charY<chartBottom) {
+                    if (MA99charY<chartBottom && MA99charY>1) {
                         if (prevMA99charY > MA99charY) { MAstr="⋰"; screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
                         if (prevMA99charY < MA99charY) { MAstr="⋱"; screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
                         screen.charXy(1,currentX,MA99charY,{ MAstr, MA99COLOR,0, false, false, false } );

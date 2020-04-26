@@ -5,13 +5,15 @@
 
 // current price checking interval in ms
 const int   PRICECHECKINTERVAL  = 1100,
-            CANDLECHECKINTERVAL = 10000;
+            CANDLECHECKINTERVAL = 10000,
+            ORDERCHECKINTERVAL  = 3000;
 
 class Ctimer {
 private:
     int currentMilliSecs    = 0,    // current ms epoch
         lastPriceCheckTime  = 0,    // last current price checked
-        lastCandleCheckTime = 0;    // last candle check
+        lastCandleCheckTime = 0,    // last candle check
+        lastOrderCheckTime  = 0;
 
 
 public:
@@ -34,4 +36,14 @@ public:
             lastCandleCheckTime=GetMilliCount();
         }
     }
+    // get orders - CANDLECHECKINTERVAL
+    void getOrders(Cexchange &exch, string symbol) {
+        currentMilliSecs=GetMilliCount();
+        if (currentMilliSecs > lastOrderCheckTime + ORDERCHECKINTERVAL) {
+            exch.getActiveOrders(symbol);
+            lastOrderCheckTime=GetMilliCount();
+        }
+    }
+
+
 };

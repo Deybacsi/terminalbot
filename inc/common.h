@@ -139,3 +139,8 @@ string doubleToString2 ( double var ) {
     std::string strObj3 = streamObj3.str();
     return strObj3;
 }
+
+long long int getTimeStamp() {
+    using namespace std::chrono;
+    return duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count();
+}

@@ -31,13 +31,13 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
-using namespace std;
+
 
 #include "curl/curl.h"
 #include "3rdparty/jsoncpp/include/json/json.h"
 #include "3rdparty/jsoncpp/include/json/reader.h"
 #include "3rdparty/plog/include/plog/Log.h"
-
+using namespace std;
 #include "inc/common.h"
 #include "apikeys.h"
 #include "config.h"
@@ -86,6 +86,7 @@ int main(void) {
         // call our timer functions
         mytimer.getCurrentPrice(binance,binanceSymbol);
         mytimer.getCandles(binance,binanceSymbol);
+        mytimer.getOrders(binance,binanceSymbol);
 
         // draw things to screen buffer
         tui.putMenu(screen);
@@ -98,6 +99,9 @@ int main(void) {
         //flags.checkFlags();
         tui.drawFlags(screen, flags);
         tui.drawPrice(screen, screen.getScreenWidth()-doubleToString2(currentPrice).length()*DIGITWIDTH, tui.chartBottom+3, currentPrice);
+
+        //screen.stringXy(4, 10, 40, { " ", 4, 7, false, false, false}, to_string(getTimeStamp()));
+
         // print out all buffers/layers
         screen.mergeLayers();
         screen.printScreen();

@@ -24,10 +24,13 @@ Json::Value simpleCurl(string apiUrl, string queryStr) {
     Json::CharReaderBuilder jsonReader;
     std::string errs;
     CURL* curl = curl_easy_init();
+    struct curl_slist *list = NULL;
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    list = curl_slist_append(list, ("X-MBX-APIKEY: "+binanceApiKey).c_str());   // we always send the API key
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list );
     long httpCode(0);
     std::stringstream json;
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callback);
