@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Terminalbot v1.0
  *
  * Simple trading bot using the 7,25,99 moving average (MA) indicators
@@ -45,6 +45,7 @@ using namespace std;
 #include "inc/http.h"
 #include "inc/screen.h"
 #include "inc/binance.h"
+bool    useUnicode=true;
 #include "inc/tui.h"
 
 #include "inc/timers.h"
@@ -55,12 +56,19 @@ int nTimeElapsed =0;
 
 Cflags flags[MAXACTIVETRADES];
 
+
+
 int main(void) {
     system("mkdir logs botdata");
     system("stty raw -echo");
     hideCursor();
     int ch = 0;
 
+    // TODO replace this
+    // check if running on WSL
+    useUnicode=commandToString("./checkwsl.sh")=="Windows" ? false : true ;
+
+    useUnicode=false;
 
     // initialize things
     plog::init(plog::debug, "logs/log.txt", 1000000, 30);
@@ -77,6 +85,7 @@ int main(void) {
     screen.init();
     binance.candleLimit=screen.getScreenWidth()+100;
     screen.clearAllLayer(CLEARCHAR);
+    cout << (useUnicode ? "Using unicode chars" : "Using basic ASCII chars" ) << "\n\r";
     cout << "Starting..." << endl;
 
     // main loop until 3 ESC / x / q pressed

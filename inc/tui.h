@@ -1,4 +1,4 @@
-﻿#ifndef TUI_H
+#ifndef TUI_H
 #define TUI_H
 
 #endif // TUI_H
@@ -10,6 +10,23 @@ const s_simplechar PRICECHAR={ " " , 2,0, false, false, false };
 const int PRICELAYER = 3;
 
 string statusBarStr = "";
+
+const string    U_CANDLEBODY = "▉",
+                A_CANDLEBODY = " ",
+                U_CANDLEWICK = "│",
+                A_CANDLEWICK = "|",
+                U_MACHARTUP  = "⋰",
+                A_MACHARTUP  = "/",
+                U_MACHARTDOWN= "⋱",
+                A_MACHARTDOWN= "\\",
+                U_MACHART    = "⋯",
+                A_MACHART    = "-",
+                U_CHECKMARK  = "✔️",
+                A_CHECKMARK  = "!",
+                U_ARROWUP    = "🡅",
+                A_ARROWUP    = "^",
+                U_ARROWDOWN  = "🡇",
+                A_ARROWDOWN  = "v";
 
 class Ctui {
 
@@ -119,7 +136,7 @@ class Ctui {
                 if (chartVisible) {
                     // draw candle |
                     for (j=chartBottom-(int)((candles[i].priceHigh-priceMin)/charHeightPrice+0.5); j<=chartBottom-(int)((candles[i].priceLow-priceMin)/charHeightPrice+0.5); j++ ) {
-                        screen.charXy(0,currentX,j,{ "│" , C_DGRAY,0, false, false, false } );
+                        screen.charXy(0,currentX,j,{ ( useUnicode? U_CANDLEWICK : A_CANDLEWICK ) , C_DGRAY,0, false, false, false } );
                     }
 
                     // price down
@@ -131,7 +148,11 @@ class Ctui {
                     }
                     // draw candle body
                     for (j=chartBottom-(int)((fromY-priceMin)/charHeightPrice+0.5); j<=chartBottom-(int)((toY-priceMin)/charHeightPrice+0.5); j++ ) {
-                        screen.charXy(4,currentX,j,{ "▉" , candleColor,0, false, false, false } );
+                        if (useUnicode) {
+                            screen.charXy(4,currentX,j,{ U_CANDLEBODY , candleColor,0, false, false, false } );
+                        } else {
+                            screen.charXy(4,currentX,j,{ A_CANDLEBODY , 0, candleColor, false, false, false } );
+                        }
                     }
 
                     // get max price X coord for later output
@@ -157,33 +178,33 @@ class Ctui {
                 MA25=getMA(25,i);
                 MA99=getMA(99,i);
                 if (ma7Visible) {
-                    MAstr="⋯";
+                    MAstr=( useUnicode ? U_MACHART : A_MACHART );
                     prevMA7charY=MA7charY;
                     MA7charY=chartBottom-(int)((MA7-priceMin)/charHeightPrice+0.5);
                     if (MA7charY<chartBottom && MA7charY>1 ) {
-                        if (prevMA7charY > MA7charY) { MAstr="⋰"; screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
-                        if (prevMA7charY < MA7charY) { MAstr="⋱"; screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
+                        if (prevMA7charY > MA7charY) { MAstr=( useUnicode ? U_MACHARTUP : A_MACHARTUP ); screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
+                        if (prevMA7charY < MA7charY) { MAstr=( useUnicode ? U_MACHARTDOWN : A_MACHARTDOWN ); screen.charXy(3,currentX-1,prevMA7charY,{ MAstr, MA7COLOR,0, false, false, false } ); }
 
                         screen.charXy(3,currentX,MA7charY,{ MAstr , MA7COLOR,0, false, false, false } );
                     }
                 }
                 if (ma25Visible) {
-                    MAstr="⋯";
+                    MAstr=( useUnicode ? U_MACHART : A_MACHART );
                     prevMA25charY=MA25charY;
                     MA25charY=chartBottom-(int)((MA25-priceMin)/charHeightPrice+0.5);
                     if (MA25charY<chartBottom && MA25charY>1) {
-                        if (prevMA25charY > MA25charY) { MAstr="⋰"; screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
-                        if (prevMA25charY < MA25charY) { MAstr="⋱"; screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
+                        if (prevMA25charY > MA25charY) { MAstr=( useUnicode ? U_MACHARTUP : A_MACHARTUP ); screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
+                        if (prevMA25charY < MA25charY) { MAstr=( useUnicode ? U_MACHARTDOWN : A_MACHARTDOWN ); screen.charXy(2,currentX-1,prevMA25charY,{ MAstr, MA25COLOR,0, false, false, false } ); }
                         screen.charXy(2,currentX,MA25charY,{ MAstr, MA25COLOR,0, false, false, false } );
                     }
                 }
                 if (ma99Visible) {
-                    MAstr="⋯";
+                    MAstr=( useUnicode ? U_MACHART : A_MACHART );
                     prevMA99charY=MA99charY;
                     MA99charY=chartBottom-(int)((MA99-priceMin)/charHeightPrice+0.5);
                     if (MA99charY<chartBottom && MA99charY>1) {
-                        if (prevMA99charY > MA99charY) { MAstr="⋰"; screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
-                        if (prevMA99charY < MA99charY) { MAstr="⋱"; screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
+                        if (prevMA99charY > MA99charY) { MAstr=( useUnicode ? U_MACHARTUP : A_MACHARTUP ); screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
+                        if (prevMA99charY < MA99charY) { MAstr=( useUnicode ? U_MACHARTDOWN : A_MACHARTDOWN ); screen.charXy(1,currentX-1,prevMA99charY,{ MAstr, MA99COLOR,0, false, false, false } ); }
                         screen.charXy(1,currentX,MA99charY,{ MAstr, MA99COLOR,0, false, false, false } );
                     }
 
@@ -240,10 +261,10 @@ class Ctui {
             // draw arrows above chart
             for (i=0; i<MAXPRICECHECKWINDOWSIZE; i++) {
                 screen.charXy(4,screen.getScreenWidth()-CHARTWIDTHOFFSET-MAXPRICECHECKWINDOWSIZE+i,
-                    chartBottom+2,{ previousPricesBelow[i] ? "🡇" : "┈" ,
+                    chartBottom+2,{ previousPricesBelow[i] ? ( useUnicode ? U_ARROWDOWN : A_ARROWDOWN ) : "┈" ,
                     (short unsigned int) (previousPricesBelow[i] ? C_RED : C_DGRAY),0, false, false, false } );
                 screen.charXy(4,screen.getScreenWidth()-CHARTWIDTHOFFSET-MAXPRICECHECKWINDOWSIZE+i,
-                    chartBottom,{ previousPricesAbove[i] ? "🡅" : "┈" ,
+                    chartBottom,{ previousPricesAbove[i] ? ( useUnicode ? U_ARROWUP : A_ARROWUP ) : "┈" ,
                     (short unsigned int) (previousPricesAbove[i] ? C_GREEN : C_DGRAY),0, false, false, false } );
             }
             // current price
@@ -269,7 +290,7 @@ class Ctui {
             screen.stringXy(4,23,chartBottom+4,
                 { " " , MA99COLOR,0, false, false, false }, flags[0].priceAboveMa99 ? "MA99" : "    " );
             screen.charXy(4,28,chartBottom+4,
-                { flags[0].priceAboveAll ? "✔️" : " " , C_GREEN ,0, false, false, false });
+                { flags[0].priceAboveAll ? ( useUnicode ? U_CHECKMARK : A_CHECKMARK ) : " " , C_GREEN ,0, false, false, false });
             screen.stringXy(4,1,chartBottom+5,
 
                 { " " , C_GRAY,0, false, false, false }, "Below:" );
@@ -281,7 +302,7 @@ class Ctui {
                 { " " , MA99COLOR,0, false, false, false }, flags[0].priceBelowMa99 ? "MA99" : "    " );
 
             screen.charXy(4,28,chartBottom+5,
-                { flags[0].priceBelowAll ? "✔️" : " " , C_GREEN ,0, false, false, false });
+                { flags[0].priceBelowAll ? ( useUnicode ? U_CHECKMARK : A_CHECKMARK ) : " " , C_GREEN ,0, false, false, false });
 
             for (i=chartBottom+3; i<chartBottom+6;i++) {
                 screen.charXy(4,30,i,
