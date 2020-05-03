@@ -9,6 +9,8 @@ Tested on:
 
 # Installing on Windows 10
 
+---
+
 You will need to enable the inbuilt linux subsystem feature in Control Panel/Programs and features:
 ![enable-wsl](images/wsl.png)
 
@@ -27,15 +29,15 @@ sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git cmake bu
 
 Now you can continue with the steps in the linux install section.
 
----
-
 # Installing on Windows 8 and below
+
+---
 
 You can install linux on a virtual machine, check [this video](https://www.youtube.com/watch?v=QbmRXJJKsvs) for details.
 
----
-
 # Installing on linux
+
+---
 
 Grab a terminal, and run these magical commands.
 
