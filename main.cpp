@@ -59,10 +59,13 @@ Cflags flags[MAXACTIVETRADES];
 
 
 int main(void) {
+    const string lb = "\n\r";
+    int ch = 0;
+
     system("mkdir logs botdata");
     system("stty raw -echo");
     hideCursor();
-    int ch = 0;
+
 
     // TODO replace this
     // check if running on WSL
@@ -85,17 +88,21 @@ int main(void) {
     screen.init();
     binance.candleLimit=screen.getScreenWidth()+100;
     screen.clearAllLayer(CLEARCHAR);
-    cout << (useUnicode ? "Using unicode chars" : "Using basic ASCII chars" ) << "\n\r";
-    cout << "Starting..." << endl;
+    cout << (useUnicode ? "Using unicode chars" : "Windows - Using basic ASCII chars" ) << lb;
+
+    cout << "Getting price" << lb;
+    mytimer.getCurrentPrice(binance,binanceSymbol);
+    cout << "Getting candle data" << lb;
+    mytimer.getCandles(binance,binanceSymbol);
+    cout << "Getting orders" << lb;
+    mytimer.getOrders(binance,binanceSymbol);
 
     // main loop until 3 ESC / x / q pressed
     while(ch!=27 && ch!=113 && ch!=120) {
         int nTimeStart = GetMilliCount();        // for counting milliseconds, needed for screen refresh
         screen.clearAllLayer(CLEARCHAR);
-        // call our timer functions
-        mytimer.getCurrentPrice(binance,binanceSymbol);
-        mytimer.getCandles(binance,binanceSymbol);
-        mytimer.getOrders(binance,binanceSymbol);
+
+
 
         // draw things to screen buffer
         tui.putMenu(screen);
@@ -148,6 +155,10 @@ int main(void) {
         int nTimeElapsed = GetMilliSpan( nTimeStart );
         // wait some ms to have the needed FPS
         std::this_thread::sleep_for(std::chrono::milliseconds(FPS2MILLISEC-nTimeElapsed));
+        // call our timer functions
+        mytimer.getCurrentPrice(binance,binanceSymbol);
+        mytimer.getCandles(binance,binanceSymbol);
+        mytimer.getOrders(binance,binanceSymbol);
     }
     // restore terminal
     system("stty cooked echo");

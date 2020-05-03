@@ -310,26 +310,45 @@ class Ctui {
             }
             screen.stringXy(4,31,chartBottom+3,
                 { " " , C_WHITE,0, false, false, false }, "Last" );
-/*
-            screen.stringXy(4,31,chartBottom+4,
-                { " ", (unsigned short int) (flags[i].priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
-                flags[i].priceConstantAbove ? "Constant" : " Wait:" );
-            screen.stringXy(4,31,chartBottom+5,
-                { " ", (unsigned short int) (flags[i].priceConstantBelow ? C_GREEN : C_GRAY) ,0, false, false, false },
-                flags[i].priceConstantBelow ? "Constant" : " Wait:" );
-     */
+
             for (i=0; i< MAXACTIVETRADES; i++) {
 
-                screen.stringXy(4,36+i*4,chartBottom+3,
+                screen.stringXy(4,39+i*5,chartBottom+3,
                     { " " , C_WHITE,0, false, false, false }, to_string(flags[i].priceCheckWindowSize) );
 
-                screen.stringXy(4,36+i*4,chartBottom+4,
+                screen.stringXy(4,39+i*5,chartBottom+4,
                     { " ", (unsigned short int) (flags[i].priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
                     flags[i].priceConstantAbove ? to_string(flags[i].priceConstantAboveCount) : to_string(flags[i].priceConstantAboveCount) );
-                screen.stringXy(4,36+i*4,chartBottom+5,
+                screen.stringXy(4,39+i*5,chartBottom+5,
                     { " ", (unsigned short int) (flags[i].priceConstantBelow ? C_GREEN : C_GRAY) ,0, false, false, false },
                     flags[i].priceConstantBelow ? to_string(flags[i].priceConstantBelowCount) : to_string(flags[i].priceConstantBelowCount) );
+
+                screen.stringXy(4,39+i*5,chartBottom+6,
+                    { " ", C_GREEN ,0, false, false, false },
+                    flags[i].priceConstantBelow ? "BUY!" : "" );
+
+                screen.stringXy(4,39+i*5,chartBottom+6,
+                    { " ", C_RED ,0, false, false, false },
+                    flags[i].priceConstantAbove ? "SELL" : "" );
+
             }
+
+            screen.stringXy(4,39+MAXACTIVETRADES*5,chartBottom+3,
+                { " " , C_WHITE,0, false, false, false }, "candles" );
+
+            for (i=0; i<30; i++) {
+                screen.charXy(4,i,chartBottom+6,{ "━" , C_GRAY,0, false, false, false } );
+            }
+            for (i=39+MAXACTIVETRADES*5; i<screen.getScreenWidth(); i++) {
+                screen.charXy(4,i,chartBottom+6,{ "━" , C_GRAY,0, false, false, false } );
+            }
+            screen.charXy(4,30,chartBottom+6,{ "┫" , C_GRAY,0, false, false, false } );
+            screen.charXy(4,30,chartBottom+2,{ "┳" , C_GRAY,0, false, false, false } );
+            screen.charXy(4,39+MAXACTIVETRADES*5,chartBottom+6,{ "┣" , C_GRAY,0, false, false, false } );
+
+            screen.stringXy(4,31,chartBottom+6,
+                { " " , C_WHITE,0, false, false, false }, "Action:" );
+
         }
 
 };

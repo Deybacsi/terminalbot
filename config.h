@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_H
+#ifndef CONFIG_H
 #define CONFIG_H
 
 #endif // CONFIG_H
@@ -10,9 +10,11 @@
  * and paste your API key & API secret
  */
 
+
 // the trading pair
 
 const string    binanceSymbol="BTCUSDT";
+
 
 /* number of **simultaneous** trades maintained by the bot
  *
@@ -23,13 +25,14 @@ const string    binanceSymbol="BTCUSDT";
  */
 const int       MAXACTIVETRADES=3;
 
+
 /* the last X candles to check to see if we are constantly below/above MAs
  *
  * lower value means quicker reactions to market price moves
  * higher value means *possible* bigger profits
  */
-
 const int       PRICECHECKWINDOWSIZE=3;
+
 
 /* minimum profit for selling - in percent -> 1 = 1%
  *
@@ -37,7 +40,6 @@ const int       PRICECHECKWINDOWSIZE=3;
  *
  * sell price = buy price + MINIMUMPROFIT %
  */
-
 const float     MINIMUMPROFIT=1;
 
 
@@ -53,8 +55,8 @@ const float     MINIMUMPROFIT=1;
  * 3 - at sell we will get ~ ONETRADEPRICE+(ONETRADEPRICE * MINIMUMPROFIT/100)  =>  ~10.1 USDT (minus exchange fees!!)
  * 4 - rinse, repeat
  */
-
 const float     ONETRADEPRICE=10;
+
 
 /* below you can specify your separate trade "threads" (amount = MAXACTIVETRADES)
  *
@@ -73,6 +75,9 @@ const float     ONETRADEPRICE=10;
  * change only the first 3 values, the other ones are overwritten by bot later
  *
  */
+
+// TODO
+// make user friendly config file instead
 
 s_trades trades[MAXACTIVETRADES] = {
     {
