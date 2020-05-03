@@ -4,7 +4,7 @@ Below instructions were made for Ubuntu linux 18.04, but you can adopt it to any
 
 Tested on:
 - Ubuntu 18.04 x64
-- Raspberry Pi 3B+, Raspbian 32bit
+- Raspberry Pi 3B+, Raspbian Buster 32bit
 - Windows 10, Windows subsystem for Linux with Ubuntu 20.04
 
 ## Installing on Windows 10
@@ -27,11 +27,13 @@ sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git cmake bu
 
 Now you can continue with the steps in the linux install section.
 
-## Installing on Windows 7 and below
+## Installing on Windows 8 and below
 
-
+You can install linux on a virtual machine, check [this video](https://www.youtube.com/watch?v=QbmRXJJKsvs) for details.
 
 ## Installing on linux
+
+Grab a terminal, and run these magical commands.
 
 ### Install  curl, jsoncpp, openssl, git:
 ```
@@ -40,7 +42,9 @@ sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git
 ```
 
 ### Install  newest  cmake:
-Currently it's 3.17
+This section is optional, if you get errors during the compilation of the bot, try to install the newest cmake. As I remember I had some issues with an earlier version on Uubuntu 18.04.
+
+Currently we will install v3.17:
 ```
 sudo apt-get purge cmake
 mkdir ~/temp
@@ -52,7 +56,8 @@ cd cmake-3.17.0/
 make
 sudo make install
 ```
-Check your version: `cmake --version`
+It will take some time, get a coffee and relax ;)
+Finally, check your version: `cmake --version`
 
 ### Clone terminalbot to your computer
 
