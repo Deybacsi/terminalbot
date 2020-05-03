@@ -35,7 +35,7 @@ class Ctui {
             screen.stringXy(STATUSBAR_LAYER, 1, 0, STATUSBAR, menustr);
         }
         void putMenu(Cscreen &screen) {
-            string menustr=" Toggle MA: 7,2,9 | Toggle chart: c";
+            string menustr=" Toggle MA: 7,2,9 | Toggle chart: c | Quit: q";
             putMenuBar(screen, menustr);
         }
 
