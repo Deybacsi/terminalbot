@@ -68,7 +68,7 @@ int main(void) {
     // check if running on WSL
     useUnicode=commandToString("./checkwsl.sh")=="Windows" ? false : true ;
 
-    useUnicode=false;
+    // useUnicode=false;
 
     // initialize things
     plog::init(plog::debug, "logs/log.txt", 1000000, 30);
