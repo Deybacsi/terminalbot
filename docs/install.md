@@ -7,7 +7,7 @@ Tested on:
 - Raspberry Pi 3B+, Raspbian Buster 32bit
 - Windows 10, Windows subsystem for Linux with Ubuntu 20.04
 
-## Installing on Windows 10
+# Installing on Windows 10
 
 You will need to enable the inbuilt linux subsystem feature in Control Panel/Programs and features:
 ![enable-wsl](images/wsl.png)
@@ -17,7 +17,7 @@ After reboot go to MS Store, and install Ubuntu:
 
 Select a linux user name, and a password:
 ![setup-ubuntu](images/wsl-userpw.png)
-This username is your username inside the linux install. The given password is usually referred to as **root** or **sudo** password.
+This username is your username inside the linux install. Your selected password is usually referred to as **root** or **sudo** password. You will be asked for this every time when you install something inside your linux subsystem.
 
 Now you have a working linux command line. Copy/paste the below commands to the window:
 ```
@@ -27,11 +27,11 @@ sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git cmake bu
 
 Now you can continue with the steps in the linux install section.
 
-## Installing on Windows 8 and below
+# Installing on Windows 8 and below
 
 You can install linux on a virtual machine, check [this video](https://www.youtube.com/watch?v=QbmRXJJKsvs) for details.
 
-## Installing on linux
+# Installing on linux
 
 Grab a terminal, and run these magical commands.
 
