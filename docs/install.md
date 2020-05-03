@@ -27,7 +27,7 @@ sudo apt-get update
 sudo apt-get install libssl-dev libcurl4-openssl-dev libjsoncpp-dev git cmake build-essential
 ```
 
-Now you can continue with the steps in the linux install section.
+You can continue with the steps in the linux install section. (You can skip the first 2 apt-get commands, because we already did it above ;)
 
 # Installing on Windows 8 and below
 
