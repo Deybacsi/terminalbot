@@ -315,6 +315,8 @@ class Ctui {
 
                 screen.stringXy(4,39+i*5,chartBottom+3,
                     { " " , C_WHITE,0, false, false, false }, to_string(flags[i].priceCheckWindowSize) );
+                screen.stringXy(4,39+i*5,chartBottom+6,
+                    { " " , C_GRAY,0, false, false, false }, "----" );
 
                 screen.stringXy(4,39+i*5,chartBottom+4,
                     { " ", (unsigned short int) (flags[i].priceConstantAbove ? C_GREEN : C_GRAY) ,0, false, false, false },
