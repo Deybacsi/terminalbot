@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # check to see if it's native linux or running inside windows subsystem for linux
 
