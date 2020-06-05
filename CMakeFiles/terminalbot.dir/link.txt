@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra -Wsign-compare -pthread -pipe   CMakeFiles/terminalbot.dir/main.cpp.o  -o terminalbot  -ljsoncpp -lcurl 

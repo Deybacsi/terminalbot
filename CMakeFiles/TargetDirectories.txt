@@ -1,3 +1,0 @@
-/home/dey/terminalbot/CMakeFiles/rebuild_cache.dir
-/home/dey/terminalbot/CMakeFiles/terminalbot.dir
-/home/dey/terminalbot/CMakeFiles/edit_cache.dir
