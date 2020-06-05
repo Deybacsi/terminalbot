@@ -60,7 +60,7 @@ Cflags flags[MAXACTIVETRADES];
 
 int main(void) {
     const string lb = "\n\r";
-    int ch = 0;
+    char ch;
 
     system("mkdir logs botdata");
     system("stty raw -echo");
